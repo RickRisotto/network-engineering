@@ -1,0 +1,63 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+""" Func process command output
+    and returns dict describing
+    devices interconnection."""
+
+
+file = open('sh_cdp_n_sw1.txt', 'r')
+all_in_one_str = file.read()
+
+
+devices = {}
+
+
+def parse_cdp_neighbours(command_output):
+    full_output_splitted = (command_output.split())
+
+    #writes items div by '/' in var 'numbs'.
+    numbs = [item for item in full_output_splitted if '/' in item]
+
+    #writes every 2nd item in 'value_numbs'.
+    value_numbs = numbs[::2]
+
+    #writes odd item in 'key_numbs'.
+    key_numbs = numbs[1::2]
+    
+    sw_key = [item.split('>')[0] for item in full_output_splitted if 'SW' in item]
+
+    #'R' only obtained.
+    r_num = [item for item in full_output_splitted if item.startswith('R')]
+    r_extraction = [item for item in r_num if len(item) in range(2,3)]
+
+    #it needs to get 'sw_key' quantity equals to 'r_extraction'(later).
+    length = len(r_extraction)
+    
+    eth_from_str = [item for item in full_output_splitted if 'Eth' in item]
+
+    #only four 'eth' we need.
+    eth_extr = eth_from_str[4::]
+
+    #create tuple's 2nd part for 'devices' dict.
+    eth_value_tuple = ["{}{}".format(eth_from_str, value_numbs) for eth_from_str, value_numbs in zip(eth_from_str, value_numbs)]
+
+    #create tuple's 1st part for 'devices' dict.
+    eth_keys_tuple = ["{}{}".format(eth_extr , key_numbs) for eth_extr, key_numbs in zip(eth_extr, key_numbs)]
+
+    #create keys for 'devices' dict.
+    keys = list(zip(sw_key*length,eth_value_tuple))
+
+    #create values for 'devices' dict.
+    values = list(zip(r_extraction,eth_keys_tuple))
+    #append keys and values.
+    devices = dict(zip(keys, values))
+
+
+    print(devices)
+    return(devices)
+
+
+parse_cdp_neighbours(all_in_one_str)
+                
+           
