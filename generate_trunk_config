@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+trunk_mode_template = [
+    'switchport mode trunk', 'switchport trunk native vlan 999',
+    'switchport trunk allowed vlan'
+]
+
+
+trunk_config = {
+    'FastEthernet0/1': [10, 20, 30],
+    'FastEthernet0/2': [11, 30],
+    'FastEthernet0/4': [17]
+}
+
+config = {}
+def generate_trunk_config(trunk_config, trunk_template):
+    for intf, vlan in trunk_config.items():
+        config.update({intf:(','.join(trunk_template)+(str(vlan)).strip('[]'))})
+    print(config)
+        
+generate_trunk_config(trunk_config, trunk_mode_template)        
+        
+        
