@@ -89,7 +89,4 @@ while not correct:
     except ValueError:
             print("{} wrong symbol".format(Entry_splitted_4th_arg))  
             
-            
-            
-            
-            
+          
