@@ -1,0 +1,40 @@
+#!/usr/bin/env python
+
+""" Get list of all params available
+    when dicts are nested """
+
+take_input = input('Enter device name: ')          
+
+london_co={                                
+    'r1': {
+        'location': '21 New globe walk',
+        'vendor:':'Cisco',
+        'model':'4451',
+        'ios':'15.4',
+        'ip':'10.255.0.1'
+        },
+    'r2': {
+        'location': '21 New Globe Walk',
+        'vendor': 'Cisco',
+        'model': '4451',
+        'ios': '15.4',
+        'ip': '10.255.0.2'
+        }
+}
+
+#take key from input               
+entry=(london_co.setdefault(take_input))
+
+#extract keys from entry and write em to black
+keys_here=entry.keys()                       
+keys_here_joined = ','.join(keys_here)
+
+nested_dict_key = input('Enter argument name:{}'.format(keys_here_joined))
+
+#any case allowed from user input
+nested_dict_key_lower = nested_dict_key.lower()
+
+params = (keys_here_joined.setdefault(nested_dict_key_lower))
+
+print(params)
+
