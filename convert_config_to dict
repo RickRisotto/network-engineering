@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+ignore = ['duplex', 'alias', 'Current configuration']
+
+def ignore_command(command, ignore):
+    '''Func returns true if
+       at least one word from ignore is in txt file'''
+    return any(word in command for word in ignore)
+
+excl_mark = ['!']
+def ignore_exclamation_mark(command, ignore):
+    '''func return true if line startswith '!' '''
+    return any(word in command for word in excl_mark)
+
+conf_dict = {}
+
+def convert_config_to_dict(config_filename):
+    """ Func returns dict with config switch file """
+    with open(config_filename) as text_file:
+        for line in text_file:
+            func_returns_ignore = ignore_command(line, ignore) #notInclsomeWords
+            if func_returns_ignore == True:
+                continue
+            else:
+                func_returns_excl = ignore_exclamation_mark(line, excl_mark)
+                if func_returns_excl == True:
+                    continue
+                else:
+                    cleared_txt_file_extrtion = line.rstrip().split('\n')
+                    for line in cleared_txt_file_extrtion:
+                        if 'version' in line:
+                            vers = line.split('\n')[0]
+                            conf_dict[vers] = []
+
+                        elif 'service' in line:
+                            serv = line.split('\n')[0]
+                            conf_dict[serv] = []
+
+                        elif 'no service' in line:
+                            no_svice = line.split('\n')[0]
+                            conf_dict[no_svice] = []
+
+                        elif 'hostname' in line:
+                            h_name = line.split('\n')[0]
+                            conf_dict[h_name] = []    
+
+                        elif 'Fast' in line:
+                            ethernet = line.split('\n')[0]
+                            conf_dict[ethernet] = []
+
+                        elif 'switchport' in line:
+                            swport = line.split('\n')[0]
+                            conf_dict[ethernet] = [swport]
+
+                        elif 'interface' in line:
+                            intf = line.split('\n')[0]
+                            conf_dict[intf] = []
+
+                        elif 'ip' in line:
+                            ip = line.split('\n')[0]
+                            conf_dict[intf] = [ip]
+
+                        elif 'line' in line:
+                            line = line.split('\n')[0]
+                            conf_dict[line] = []
+
+                        elif 'exec' in line:
+                            exc = line.split('\n')[0]
+
+                        elif 'privilege' in line:
+                            privel = line.split('\n')[0]
+
+                        elif 'logging' in line:
+                            logg = line.split('\n')[0]
+                            conf_dict[line] = [exc, privel, logg]
+
+                        elif 'end' in line:
+                            end = line.split('\n')[0]
+                            conf_dict[end] = []
+                            
+    print(conf_dict)
+    return(conf_dict)
+        
+convert_config_to_dict('config_sw2.txt')    
