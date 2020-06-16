@@ -1,0 +1,90 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+""" Check if ip incorrect and
+    make user to write it
+    in a proper way """
+
+Entry = input("Enter : ")
+
+correct = False
+
+while not correct:
+    try:
+        Entry_splitted = Entry.split(".")
+        Entry_splitted_1st_arg = Entry_splitted[0]
+
+        if int(Entry_splitted_1st_arg) > 255:
+            print("More 255")
+        elif int(Entry_splitted_1st_arg) in range(1, 224):
+            print("Unicast {} ".format(Entry))
+            correct = True
+            continue
+        elif int(Entry_splitted_1st_arg) in range(224, 239):
+            print("multicast {} ".format(Entry))
+            correct = True
+            continue
+        elif '255.255.255.255' in Entry:
+            print("Local broadcast {}  ".format(Entry))
+            correct = True
+            continue
+        elif '0.0.0.0' in Entry:
+            print("Unassigned {}  ".format(Entry))
+            correct = True
+            continue
+        else:
+            print("Unused {}".format(Entry))
+            correct = True
+            continue
+        Entry = input("Enter again {}: ".format(Entry))
+    except ValueError:
+            print("{} wrong symbol".format(Entry_splitted_1st_arg))
+            Entry = input("Enter again {}: ".format(Entry))    
+
+correct = False
+
+while not correct:            
+    try:
+        Entry_splitted = Entry.split(".")
+        Entry_splitted_2nd_arg = Entry_splitted[1]    
+    
+        if int(Entry_splitted_2nd_arg) > 255:
+            print("More 255 {}".format(Entry_splitted_2nd_arg))
+        else:
+            correct = True
+            continue
+        Entry = input("Enter again {}: ".format(Entry))
+    except ValueError:
+            print("{} wrong symbol".format(Entry_splitted_2nd_arg))
+
+correct = False
+
+while not correct:            
+    try:
+        Entry_splitted = Entry.split(".")
+        Entry_splitted_3rd_arg = Entry_splitted[2]    
+    
+        if int(Entry_splitted_2nd_arg) > 255:
+            print("More 255 {}".format(Entry_splitted_2nd_arg))
+        else:
+            correct = True
+            continue
+        Entry = input("Enter again {}: ".format(Entry))
+    except ValueError:
+            print("{} wrong symbol".format(Entry_splitted_3rd_arg))
+        
+correct = False
+
+while not correct:            
+    try:
+        Entry_splitted = Entry.split(".")
+        Entry_splitted_4th_arg = Entry_splitted[3]    
+    
+        if int(Entry_splitted_4th_arg) > 255:
+            print("More 255 {}".format(Entry_splitted_2nd_arg))
+        else:
+            correct = True
+            continue
+        Entry = input("Enter again {}: ".format(Entry))
+    except ValueError:
+            print("{} wrong symbol".format(Entry_splitted_4th_arg))            
