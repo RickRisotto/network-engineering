@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+""" Template-Script writes list to file, then
+    opens it and
+    ignoring items from list and
+    which start from '!'. """
+
+from sys import argv
+
+#as arg name to script
+filename = argv[1]
+
+#open +dub with given name.
+f = open(filename, 'w')
+
+
+str_list = ["my", "lonely", "days", "!again", "switched","to", "my",
+            "notlinely", "nights"]
+as_str = '\n'.join(str_list)
+
+
+#write to file.
+f.write(as_str)
+f.seek(0)        
+f.close
+
+#ignore_list.
+ignore = ["my","qwerty_sw"]
+
+
+#to get rid of '!'.
+true_event = False
+
+with open(filename, 'r') as f:
+    for line in f:
+        if line.startswith('!'):
+            pass
+        elif ignore[0] in line:
+            pass
+        elif ignore[1] in line:
+            pass
+        else:
+            print(line.strip('\n'))
+            true_event = True
+    
