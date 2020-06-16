@@ -87,4 +87,9 @@ while not correct:
             continue
         Entry = input("Enter again {}: ".format(Entry))
     except ValueError:
-            print("{} wrong symbol".format(Entry_splitted_4th_arg))            
+            print("{} wrong symbol".format(Entry_splitted_4th_arg))  
+            
+            
+            
+            
+            
