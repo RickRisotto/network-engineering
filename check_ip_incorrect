@@ -64,8 +64,8 @@ while not correct:
         Entry_splitted = Entry.split(".")
         Entry_splitted_3rd_arg = Entry_splitted[2]    
     
-        if int(Entry_splitted_3nd_arg) > 255:
-            print("More 255 {}".format(Entry_splitted_2nd_arg))
+        if int(Entry_splitted_3rd_arg) > 255:
+            print("More 255 {}".format(Entry_splitted_3rd_arg))
         else:
             correct = True
             continue
@@ -81,7 +81,7 @@ while not correct:
         Entry_splitted_4th_arg = Entry_splitted[3]    
     
         if int(Entry_splitted_4th_arg) > 255:
-            print("More 255 {}".format(Entry_splitted_2nd_arg))
+            print("More 255 {}".format(Entry_splitted_4th_arg))
         else:
             correct = True
             continue
